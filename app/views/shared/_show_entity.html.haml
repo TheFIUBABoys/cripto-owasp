@@ -1,0 +1,6 @@
+%table.table.table-striped
+  %tbody
+    - entity.attributes.each do |(name, value)|
+      %tr
+        %td= name
+        %td= value
