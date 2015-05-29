@@ -27,4 +27,8 @@ module SessionsHelper
     cookies.signed[:session] = nil
   end
 
+  def ensure_session
+    redirect_to new_session_path unless current_session
+  end
+
 end
