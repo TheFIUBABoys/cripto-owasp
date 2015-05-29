@@ -9,4 +9,9 @@
     = f.label :password
     = f.password_field :password, class: 'form-control'
 
+  .form-group
+    = label_tag 'user[remember_me]' do
+      = check_box_tag 'user[remember_me]', true, false
+      Remember me
+
   = f.submit 'Log In', class: 'btn btn-default'

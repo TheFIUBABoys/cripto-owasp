@@ -14,7 +14,10 @@ class SessionsController < ApplicationController
   def create
     sign_out
     user = User.find_by(email: user_params[:email])
-    redirect_to user_path(user) if sign_in!(user, user_params[:password])
+
+    if sign_in!(user, user_params[:password], remember_me: truthy?(user_params[:remember_me]))
+      redirect_to user_path(user)
+    end
   end
 
   def destroy
@@ -25,7 +28,11 @@ class SessionsController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :password)
+    params.require(:user).permit(:email, :password, :remember_me)
+  end
+
+  def truthy?(value)
+    %w[1 true].include? value
   end
 
 end
