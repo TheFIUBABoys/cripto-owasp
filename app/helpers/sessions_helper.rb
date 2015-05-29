@@ -4,9 +4,10 @@ module SessionsHelper
     valid_password = user.try(:authenticate, password)
 
     if user && valid_password
-      # XXX Session management with signed cookie.
+      # XXX Session management with signed cookie. Session expires in 10 seconds.
       Session.find_or_create_by(user: user).touch
-      cookies.permanent.signed[:session] = user.session.id
+      # cookies.signed[:session] = { value: user.session.id, expires: 1.day.from_now }
+      cookies.signed[:session] = { value: user.session.id, expires: 5.seconds.from_now }
 
       user
     else
@@ -19,7 +20,7 @@ module SessionsHelper
   end
 
   def sign_out
-    cookies.permanent.signed[:session] = nil
+    cookies.signed[:session] = nil
   end
 
 end

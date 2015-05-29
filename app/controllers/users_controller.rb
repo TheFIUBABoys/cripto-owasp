@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by(id: params[:id])
 
-    handle_unauthorized! unless @user && current_user.id == @user.id
+    handle_unauthorized! unless @user && current_session && current_user.id == @user.id
   end
 
   def new

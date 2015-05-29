@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
   def show
     @session = Session.find_by(id: params[:id])
 
+    # XXX Secure reference to objects.
     handle_unauthorized! unless @session && current_session.id == @session.id
   end
 
