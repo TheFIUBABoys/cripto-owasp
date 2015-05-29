@@ -4,9 +4,9 @@ class UsersController < ApplicationController
   before_action :ensure_session, except: [:new, :create]
 
   def show
-    @user = User.find_by(id: params[:id])
+    @user = User.find_or_initialize_by(id: params[:id])
 
-    handle_unauthorized! unless @user && current_user.id == @user.id
+    handle_unauthorized! unless current_user.id == @user.id
   end
 
   def new

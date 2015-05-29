@@ -4,10 +4,10 @@ class SessionsController < ApplicationController
   before_action :ensure_session, except: [:new, :create]
 
   def show
-    @session = Session.find_by(id: params[:id])
+    @session = Session.find_or_initialize_by(id: params[:id])
 
     # XXX Secure reference to objects.
-    handle_unauthorized! unless @session && current_session.id == @session.id
+    handle_unauthorized! unless current_session.id == @session.id
   end
 
   def new
