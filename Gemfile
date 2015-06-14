@@ -13,3 +13,4 @@ gem 'turbolinks'
 
 gem 'bcrypt-ruby', '3.1.2'
 gem 'pry'
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
