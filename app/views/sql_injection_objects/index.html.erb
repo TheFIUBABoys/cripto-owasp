@@ -1,0 +1,15 @@
+<h1>Listing objects</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Text</th>
+  </tr>
+
+  <% @sql_objects.each do |sql_object| %>
+      <tr>
+        <td><%= sql_object.title %></td>
+        <td><%= sql_object.text %></td>
+      </tr>
+  <% end %>
+</table>
