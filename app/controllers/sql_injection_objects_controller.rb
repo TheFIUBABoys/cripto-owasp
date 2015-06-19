@@ -1,17 +1,24 @@
 class SqlInjectionObjectsController < ApplicationController
+
   skip_before_filter :verify_authenticity_token
-  def new
+  respond_to :html, :js
+
+  def index
+    @sql_objects = SqlInjectionObject.all
   end
 
-  def create
-    @sql_object = SqlInjectionObject.new(sql_injection_objects_params)
-
-    @sql_object.save
-    redirect_to @sql_object
+  def new
   end
 
   def show
     @sql_object = SqlInjectionObject.find params[:id]
+  end
+
+  def create
+    sql_object = SqlInjectionObject.new sql_injection_objects_params
+
+    sql_object.save
+    redirect_to sql_object
   end
 
   def destroy
@@ -19,9 +26,9 @@ class SqlInjectionObjectsController < ApplicationController
 
     # Sample request for postman:
     # http://localhost:3000/sql_injection_objects/1) OR 1=1--
-    SqlInjectionObject.delete_all("id = #{params[:id]}")
+    deleted = SqlInjectionObject.delete_all "id = #{params[:id]}"
 
-    redirect_to action: 'index', status: 303
+    render json: deleted
   end
 
   def destroy_protected
@@ -29,18 +36,16 @@ class SqlInjectionObjectsController < ApplicationController
 
     # Sample request for postman:
     # http://localhost:3000/sql_injection_objects/1) OR 1=1--/destroy_protected
-    to_destroy = SqlInjectionObject.find_by(id: params[:id])
-    to_destroy.destroy if to_destroy.present?
+    deleted = SqlInjectionObject.find_by id: params[:id]
+    deleted.destroy if deleted.present?
 
-    redirect_to action: 'index', status: 303
-  end
-
-  def index
-      @sql_objects = SqlInjectionObject.all
+    render json: deleted
   end
 
   private
+
   def sql_injection_objects_params
     params.require(:sql_injection_object).permit(:title, :text)
   end
+
 end
