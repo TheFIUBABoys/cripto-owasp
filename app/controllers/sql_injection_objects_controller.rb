@@ -24,6 +24,12 @@ class SqlInjectionObjectsController < ApplicationController
     redirect_to action: 'index', status: 303
   end
 
+  def destroy_protected
+    to_destroy = SqlInjectionObject.find_by(id: params[:id])
+    to_destroy.destroy if to_destroy.present?
+    redirect_to action: 'index', status: 303
+  end
+
   def index
       @sql_objects = SqlInjectionObject.all
   end
