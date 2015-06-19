@@ -15,12 +15,13 @@ class SqlInjectionObjectsController < ApplicationController
   end
 
   def destroy
-    #Sample id injection, move this to request when everything works
-    params[:id] = "1) OR 1=1--"
-    print("id = #{params[:id]}\n")
-    #Now ALL records will be deleted due to injection
+    #Sample id injection: "1) OR 1=1--" => Deletes ALL records
+
+    #Sample request for postman: http://localhost:3000/sql_injection_objects/1) OR 1=1--
+    print("Will DELETE! the following ids: #{params[:id]}\n")
+
     SqlInjectionObject.delete_all("id = #{params[:id]}")
-    redirect_to action: 'index'
+    redirect_to action: 'index', status: 303
   end
 
   def index
