@@ -7,3 +7,5 @@
   <strong>Text:</strong>
   <%= @sql_object.text %>
 </p>
+
+<%= link_to 'Delete', "#{sql_injection_objects_path}/#{@sql_object.id}", :method => 'delete' %>
