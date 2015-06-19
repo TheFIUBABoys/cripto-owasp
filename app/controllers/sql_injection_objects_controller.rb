@@ -15,18 +15,23 @@ class SqlInjectionObjectsController < ApplicationController
   end
 
   def destroy
-    #Sample id injection: "1) OR 1=1--" => Deletes ALL records
+    # Sample id injection: "1) OR 1=1--" => Deletes ALL records
 
-    #Sample request for postman: http://localhost:3000/sql_injection_objects/1) OR 1=1--
-    print("Will DELETE! the following ids: #{params[:id]}\n")
-
+    # Sample request for postman:
+    # http://localhost:3000/sql_injection_objects/1) OR 1=1--
     SqlInjectionObject.delete_all("id = #{params[:id]}")
+
     redirect_to action: 'index', status: 303
   end
 
   def destroy_protected
+    # Sample id injection: "1) OR 1=1--" => Deletes ALL records
+
+    # Sample request for postman:
+    # http://localhost:3000/sql_injection_objects/1) OR 1=1--/destroy_protected
     to_destroy = SqlInjectionObject.find_by(id: params[:id])
     to_destroy.destroy if to_destroy.present?
+    
     redirect_to action: 'index', status: 303
   end
 

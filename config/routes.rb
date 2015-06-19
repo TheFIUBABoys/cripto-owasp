@@ -6,6 +6,10 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :new, :create]
   resources :sessions, only: [:show, :new, :create, :destroy]
-  resources :sql_injection_objects
+  resources :sql_injection_objects do
+    member do
+      delete :destroy_protected
+    end
+  end
 
 end
