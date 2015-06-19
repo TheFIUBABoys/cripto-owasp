@@ -36,7 +36,7 @@ class SqlInjectionObjectsController < ApplicationController
 
     # Sample request for postman:
     # http://localhost:3000/sql_injection_objects/1) OR 1=1--/destroy_protected
-    deleted = SqlInjectionObject.find_by id: params[:id]
+    deleted = SqlInjectionObject.find_by(id: params[:id])
     deleted.destroy if deleted.present?
 
     render json: deleted
