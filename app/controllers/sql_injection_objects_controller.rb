@@ -11,7 +11,7 @@ class SqlInjectionObjectsController < ApplicationController
   end
 
   def show
-    @sql_object = SqlInjectionObject.find(params[:id])
+    @sql_object = SqlInjectionObject.find params[:id]
   end
 
   def destroy
@@ -31,7 +31,7 @@ class SqlInjectionObjectsController < ApplicationController
     # http://localhost:3000/sql_injection_objects/1) OR 1=1--/destroy_protected
     to_destroy = SqlInjectionObject.find_by(id: params[:id])
     to_destroy.destroy if to_destroy.present?
-    
+
     redirect_to action: 'index', status: 303
   end
 

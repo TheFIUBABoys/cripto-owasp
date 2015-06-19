@@ -1,0 +1,18 @@
+%h1
+  Sql Injection Objects
+  = link_to 'Add new object', new_sql_injection_object_path, class: 'btn btn-success'
+- if @sql_objects.count > 0
+  %table.table
+    %thead
+      %tr
+        %th Title
+        %th Text
+        %th
+    %tbody
+      - @sql_objects.each do |sql_object|
+        %tr
+          %td= sql_object.title
+          %td= sql_object.text
+          %td= link_to 'Show', sql_injection_object_path(sql_object), class: 'btn btn-default'
+- else
+  %h3 There are no objects in the database!

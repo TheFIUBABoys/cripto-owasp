@@ -1,0 +1,7 @@
+%p
+  %strong Title:
+  = @sql_object.title
+%p
+  %strong Text:
+  = @sql_object.text
+= link_to 'Delete', "#{sql_injection_objects_path}/#{@sql_object.id}", method: :delete, class: 'btn btn-danger'
